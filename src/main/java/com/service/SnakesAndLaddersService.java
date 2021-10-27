@@ -5,21 +5,24 @@ import com.model.Player;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
-public class SnakeAndLadderService {
+public class SnakesAndLaddersService {
 
     private Board board;
     private Queue<Player> players;
     private Random random = new Random();
 
-    private static final int maxDiceValue = 6;
-    private static final int minDiceValue = 1;
+    private int maxDiceValue;
+    private int minDiceValue;
 
-    public SnakeAndLadderService(Board board) {
+    public SnakesAndLaddersService(Board board, int minDiceValue, int maxDiceValue) {
         this.board = board;
         this.setPlayers(board.getPlayers());
+        this.minDiceValue = minDiceValue;
+        this.maxDiceValue = maxDiceValue;
     }
 
     private void setPlayers(List<Player> players) {
@@ -37,8 +40,23 @@ public class SnakeAndLadderService {
         else {
             System.out.println(player.getName() + " cannot moved out of the board. \nStay at current position.");
         }
+        updatePositionIfBitBySnake(position, player);
+        System.out.println(player.getName() + " moved to " + player.getPosition());
+    }
+
+    private void updatePositionIfBitBySnake(int position, Player player) {
+        int prePosition = -1;
+        while(prePosition != position) {
+            prePosition = position;
+            Map<Integer, Integer> snakes = board.getSnakes();
+            if(snakes.containsKey(position)) {
+                position = snakes.get(position);
+                player.setPosition(position);
+                player.addSnakeBitePosition(prePosition);
+                System.out.println(player.getName() + " got bit by snake. Goto position: " + position);
+            }
+        }
         player.setPosition(position);
-        System.out.println(player.getName() + " moved to " + position);
     }
 
     private int diceRoll() {
@@ -58,7 +76,7 @@ public class SnakeAndLadderService {
             Player currentPlayer = players.poll();
             move(currentPlayer, diceValue);
             if (isFinalDestination(currentPlayer)) {
-                System.out.println(currentPlayer.getName() + " has won");
+                System.out.println(currentPlayer.getName() + " has won.");
                 players.clear();
             }
             else {
