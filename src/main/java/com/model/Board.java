@@ -7,11 +7,13 @@ public class Board {
     private final int size;
     private List<Player> players;
     private Map<Integer, Integer> snakes;
+    private Map<Integer, Integer> ladders;
 
-    public Board(int size, List<Player> players, Map<Integer, Integer> snakes) {
+    public Board(int size, List<Player> players, Map<Integer, Integer> snakes, Map<Integer, Integer> ladders) {
         this.size = size;
         this.players = players;
         this.snakes = snakes;
+        this.ladders = ladders;
     }
 
     public int getSize() {
@@ -26,7 +28,7 @@ public class Board {
         return snakes;
     }
 
-    public void setSnakes(Map<Integer, Integer> snakes) {
-        this.snakes = snakes;
+    public Map<Integer, Integer> getLadders() {
+        return ladders;
     }
 }

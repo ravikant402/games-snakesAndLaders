@@ -6,11 +6,13 @@ public class Player {
     private String name;
     private int position;
     private LinkedList<Integer> snakeBitePositions;
+    private LinkedList<Integer> ladderPositions;
 
     public Player(String name) {
         this.name = name;
         this.position = 0;
         snakeBitePositions = new LinkedList<>();
+        ladderPositions = new LinkedList<>();
     }
 
     public String getName() {
@@ -29,8 +31,16 @@ public class Player {
         return snakeBitePositions;
     }
 
+    public LinkedList<Integer> getLadderPositions() {
+        return ladderPositions;
+    }
+
     public void addSnakeBitePosition (int bitePosition){
         snakeBitePositions.add(bitePosition);
+    }
+
+    public void addLadderTookPosition (int ladderPosition){
+        ladderPositions.add(ladderPosition);
     }
 
 }

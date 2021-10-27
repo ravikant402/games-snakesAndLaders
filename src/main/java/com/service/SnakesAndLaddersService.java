@@ -2,27 +2,23 @@ package com.service;
 
 import com.model.Board;
 import com.model.Player;
+import com.model.dice.Dice;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Random;
 
 public class SnakesAndLaddersService {
 
     private Board board;
     private Queue<Player> players;
-    private Random random = new Random();
+    private Dice dice;
 
-    private int maxDiceValue;
-    private int minDiceValue;
-
-    public SnakesAndLaddersService(Board board, int minDiceValue, int maxDiceValue) {
+    public SnakesAndLaddersService(Board board, Dice dice) {
         this.board = board;
         this.setPlayers(board.getPlayers());
-        this.minDiceValue = minDiceValue;
-        this.maxDiceValue = maxDiceValue;
+        this.dice = dice;
     }
 
     private void setPlayers(List<Player> players) {
@@ -40,11 +36,11 @@ public class SnakesAndLaddersService {
         else {
             System.out.println(player.getName() + " cannot moved out of the board. \nStay at current position.");
         }
-        updatePositionIfBitBySnake(position, player);
+        updatePositionIfBitBySnakeOrTakesLadder(position, player);
         System.out.println(player.getName() + " moved to " + player.getPosition());
     }
 
-    private void updatePositionIfBitBySnake(int position, Player player) {
+    private void updatePositionIfBitBySnakeOrTakesLadder(int position, Player player) {
         int prePosition = -1;
         while(prePosition != position) {
             prePosition = position;
@@ -55,12 +51,15 @@ public class SnakesAndLaddersService {
                 player.addSnakeBitePosition(prePosition);
                 System.out.println(player.getName() + " got bit by snake. Goto position: " + position);
             }
+            Map<Integer, Integer> ladders = board.getLadders();
+            if(ladders.containsKey(position)) {
+                position = ladders.get(position);
+                player.setPosition(position);
+                player.addLadderTookPosition(prePosition);
+                System.out.println(player.getName() + " got a ladder. Goto position: " + position);
+            }
         }
         player.setPosition(position);
-    }
-
-    private int diceRoll() {
-        return random.nextInt((maxDiceValue - minDiceValue) + 1) + minDiceValue;
     }
 
     private boolean isFinalDestination(Player player) {
@@ -72,7 +71,7 @@ public class SnakesAndLaddersService {
 
     public void startGame() {
         while (true) {
-            int diceValue = diceRoll();
+            int diceValue = dice.roll();
             Player currentPlayer = players.poll();
             move(currentPlayer, diceValue);
             if (isFinalDestination(currentPlayer)) {
