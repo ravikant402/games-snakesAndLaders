@@ -42,7 +42,7 @@ public class SnakesAndLaddersService {
             prePosition = position;
             List<Snake> snakes = board.getSnakes();
             int finalPosition = position;
-            if(isSnakeHere(position, snakes)) {
+            if(shouldBite(position, snakes)) {
                 position = snakes.stream().filter(snake -> snake.getStartPoint() == finalPosition).findFirst().map(Snake::getEndpoint).get();
                 player.setPosition(position);
                 player.addSnakeBitePosition(prePosition);
@@ -59,7 +59,7 @@ public class SnakesAndLaddersService {
         player.setPosition(position);
     }
 
-    private boolean isSnakeHere(int position, List<Snake> snakes) {
+    private boolean shouldBite(int position, List<Snake> snakes) {
         return snakes.stream().anyMatch(snake -> snake.shouldBite(position));
     }
 

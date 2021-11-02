@@ -53,18 +53,18 @@ public class Main {
 
             int start;
             do {
-                System.out.println("Enter snake's head position. Should be greater than equal to 2 and lesser than board size");
+                System.out.println("Enter snake: " + (i+1) +" head position. Should be greater than equal to 2 and lesser than board size");
                 start = sc.nextInt();
             } while (start < 2 || start >= boardSize);
 
             int end;
             do {
-                System.out.println("Enter snake's tail position. Tail position should be lesser than the head position. Should be greater than 0.");
+                System.out.println("Enter snake: " + (i+1) + " tail position. Tail position should be lesser than the head position. Should be greater than 0.");
                 end = sc.nextInt();
             } while (end >= start || end <= 0);
 
             sc.nextLine();
-            System.out.println("Enter 'n'/'N' for normal Sanke, else Green Snake");
+            System.out.println("Enter 'n'/'N' for Normal Snake, else Green Snake");
             SnakeFactory snakeFactory = new SnakeFactory();
             Snake snake = snakeFactory.getSnake(sc.nextLine(), start, end);
 
@@ -82,13 +82,13 @@ public class Main {
         for(int i=0;i<noOfLadders;i++) {
             int start;
             do {
-                System.out.println("Enter ladder's head position. Should be greater than 1 and less than board size");
+                System.out.println("Enter ladder: " + (i+1) +" head position. Should be greater than 1 and less than board size");
                 start = sc.nextInt();
             } while (start <= 1 || start > boardSize - 1 );
 
             int end;
             do {
-                System.out.println("Enter ladder's tail position. Tail position should be grater than the head position and less than or equal to the board size.");
+                System.out.println("Enter ladder: " + (i+1) +" tail position. Tail position should be grater than the head position and less than or equal to the board size.");
                 end = sc.nextInt();
             } while (end <= start || end > boardSize);
 

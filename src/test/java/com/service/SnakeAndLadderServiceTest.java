@@ -8,7 +8,6 @@ import com.snake.NormalSnake;
 import com.snake.Snake;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -20,7 +19,6 @@ public class SnakeAndLadderServiceTest {
 
 
 //    @Test
-//    @Ignore
 //    public void test_snakesAndLadderGameFor1PlayerWithNoSnakes() {
 //        Player player = new Player("Ravi");
 //        Board board = new Board(100, player, new HashMap<>(), new HashMap<>());
@@ -39,21 +37,20 @@ public class SnakeAndLadderServiceTest {
 //    }
 
     @Test
-    @Ignore
     public void test_snakesAndLadderGameFor1PlayerWithSnakes() {
         Player player = new Player("Player1");
-        Snake snake1 = new GreenSnake(9, 4);
-        Snake snake2 = new NormalSnake(11, 7);
+        GreenSnake snake1 = new GreenSnake(9, 4);
+        snake1.setBites(2);
+        NormalSnake snake2 = new NormalSnake(11, 8);
         List<Snake> snakes = Arrays.asList(snake1, snake2);
         Board board = new Board(100, player, snakes, new HashMap<>());
         SnakesAndLaddersService snakesAndLaddersService = new SnakesAndLaddersService(board, new NormalDice());
-        snakesAndLaddersService.startGame(new Scanner("y\nx\n4\nx\n3\nx\n6\nx\n1\ne\n"));
-        Assert.assertEquals(7, player.getPosition());
-        Assert.assertEquals(14, player.getSnakeBitePositions().getFirst().intValue());
+        snakesAndLaddersService.startGame(new Scanner("y\nx\n6\nx\n3\nx\n2\nx\n1\ne\n"));
+        Assert.assertEquals(4, player.getPosition());
+        Assert.assertEquals(9, player.getSnakeBitePositions().getLast().intValue());
     }
 
 //    @Test
-//    @Ignore
 //    public void test_snakesAndLadderGameFor1PlayerWithSnakesAndLadders_withCrookedDice() {
 //        Player player = new Player("Player1");
 //        Map<Integer, Integer> snakes = new HashMap<>();

@@ -11,6 +11,8 @@ public class GreenSnake extends Snake {
     public GreenSnake(int startPoint, int endpoint) {
         this.startPoint = startPoint;
         this.endpoint = endpoint;
+        this.bites = 0;
+        this.currBites = 0;
     }
 
     @Override
@@ -19,6 +21,7 @@ public class GreenSnake extends Snake {
             addBite();
         }
         if(bites == currBites) {
+            currBites = 0;
             return true;
         }
         return false;
