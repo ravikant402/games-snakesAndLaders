@@ -1,4 +1,4 @@
-package com.model.dice;
+package com.dice;
 
 import java.util.Random;
 

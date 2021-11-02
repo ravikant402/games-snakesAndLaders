@@ -1,8 +1,8 @@
 package com.service;
 
-import com.model.dice.CrookedDice;
-import com.model.dice.Dice;
-import com.model.dice.NormalDice;
+import com.dice.CrookedDice;
+import com.dice.Dice;
+import com.dice.NormalDice;
 
 public class DiceFactory {
 

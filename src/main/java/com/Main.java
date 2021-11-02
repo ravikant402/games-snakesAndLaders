@@ -2,7 +2,7 @@ package com;
 
 import com.model.Board;
 import com.model.Player;
-import com.model.dice.Dice;
+import com.dice.Dice;
 import com.service.DiceFactory;
 import com.service.SnakesAndLaddersService;
 

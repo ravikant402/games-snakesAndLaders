@@ -2,8 +2,8 @@ package com.service;
 
 import com.model.Board;
 import com.model.Player;
-import com.model.dice.CrookedDice;
-import com.model.dice.NormalDice;
+import com.dice.CrookedDice;
+import com.dice.NormalDice;
 
 import org.junit.Assert;
 import org.junit.Test;

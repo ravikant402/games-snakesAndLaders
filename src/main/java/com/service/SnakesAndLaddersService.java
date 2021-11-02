@@ -2,8 +2,8 @@ package com.service;
 
 import com.model.Board;
 import com.model.Player;
-import com.model.dice.Dice;
-import com.model.dice.NormalDice;
+import com.dice.Dice;
+import com.dice.NormalDice;
 
 import java.util.Map;
 import java.util.Scanner;

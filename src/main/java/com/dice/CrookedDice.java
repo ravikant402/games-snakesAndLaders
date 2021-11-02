@@ -1,4 +1,4 @@
-package com.model.dice;
+package com.dice;
 
 public class CrookedDice extends Dice {
 
