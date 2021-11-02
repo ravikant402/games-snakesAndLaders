@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class SnakesAndLaddersService {
 
-    private Board board;
-    private Player player;
-    private Dice dice;
+    private final Board board;
+    private final Player player;
+    private final Dice dice;
 
     public SnakesAndLaddersService(Board board, Dice dice) {
         this.board = board;
