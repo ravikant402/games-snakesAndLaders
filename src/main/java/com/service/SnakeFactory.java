@@ -7,7 +7,7 @@ import com.snake.Snake;
 public class SnakeFactory {
 
     public Snake getSnake(String type, int head, int tail) {
-        if("N".equals(type)) {
+        if("n".equalsIgnoreCase(type)) {
             return new NormalSnake(head, tail);
         }
         else {
