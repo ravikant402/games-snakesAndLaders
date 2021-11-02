@@ -75,19 +75,7 @@ public class SnakesAndLaddersService {
                 if ("e".equals(sc.next())) {
                     break;
                 }
-                if (dice instanceof NormalDice) {
-                    do{
-                        System.out.println("Press a number between 1-6 for a dice value.");
-                        diceValue = sc.nextInt();
-                    } while(diceValue > 6 || diceValue < 1);
-
-                }
-                else {
-                    do {
-                        System.out.println("Press even number between 1-6 for dice value.");
-                        diceValue = sc.nextInt();
-                    } while(diceValue % 2 != 0 || diceValue > 6 || diceValue < 1);
-                }
+                diceValue = getDiceValue(sc);
 
             }
             else {
@@ -100,5 +88,23 @@ public class SnakesAndLaddersService {
                 moreTurns = false;
             }
         }
+    }
+
+    private int getDiceValue(Scanner sc) {
+        int diceValue;
+        if (dice instanceof NormalDice) {
+            do{
+                System.out.println("Press a number between 1-6 for a dice value.");
+                diceValue = sc.nextInt();
+            } while(diceValue > 6 || diceValue < 1);
+
+        }
+        else {
+            do {
+                System.out.println("Press even number between 1-6 for dice value.");
+                diceValue = sc.nextInt();
+            } while(diceValue % 2 != 0 || diceValue > 6 || diceValue < 1);
+        }
+        return diceValue;
     }
 }
