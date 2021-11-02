@@ -1,14 +1,17 @@
 package com.model;
 
+import com.snake.Snake;
+
+import java.util.List;
 import java.util.Map;
 
 public class Board {
     private final int size;
     private Player player;
-    private Map<Integer, Integer> snakes;
+    private List<Snake> snakes;
     private Map<Integer, Integer> ladders;
 
-    public Board(int size, Player player, Map<Integer, Integer> snakes, Map<Integer, Integer> ladders) {
+    public Board(int size, Player player, List<Snake> snakes, Map<Integer, Integer> ladders) {
         this.size = size;
         this.player = player;
         this.snakes = snakes;
@@ -23,7 +26,7 @@ public class Board {
         return player;
     }
 
-    public Map<Integer, Integer> getSnakes() {
+    public List<Snake> getSnakes() {
         return snakes;
     }
 

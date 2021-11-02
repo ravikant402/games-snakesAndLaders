@@ -4,15 +4,20 @@ import com.model.Board;
 import com.model.Player;
 import com.dice.Dice;
 import com.service.DiceFactory;
+import com.service.SnakeFactory;
 import com.service.SnakesAndLaddersService;
+import com.snake.GreenSnake;
+import com.snake.Snake;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Integer, Integer> snakes = new HashMap<>();
+        List<Snake> snakes = new ArrayList<>();
         Map<Integer, Integer> ladders = new HashMap<>();
         Scanner sc = new Scanner(System.in);
 
@@ -39,11 +44,13 @@ public class Main {
         return diceFactory.getDice(diceType);
     }
 
-    private static void setSnakesPositions(Map<Integer, Integer> snakes, Scanner sc, int boardSize) {
+    private static void setSnakesPositions(List<Snake> snakes, Scanner sc, int boardSize) {
         System.out.println("Enter number of snakes");
         int noOfSnakes = sc.nextInt();
 
         for(int i=0;i<noOfSnakes;i++) {
+
+
             int start;
             do {
                 System.out.println("Enter snake's head position. Should be greater than equal to 2 and lesser than board size");
@@ -56,7 +63,15 @@ public class Main {
                 end = sc.nextInt();
             } while (end >= start || end <= 0);
 
-            snakes.put(start, end);
+            System.out.println("Enter 'N' for normal Sanke, else Green Snake");
+            SnakeFactory snakeFactory = new SnakeFactory();
+            Snake snake = snakeFactory.getSnake(sc.nextLine(), start, end);
+
+            if(snake instanceof GreenSnake) {
+                System.out.println("Enter the number of bites to get to tail.");
+                ((GreenSnake) snake).setBites(sc.nextInt());
+            }
+            snakes.add(snake);
         }
     }
 

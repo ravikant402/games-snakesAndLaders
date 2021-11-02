@@ -1,10 +1,12 @@
 package com.service;
 
-import com.model.Board;
-import com.model.Player;
 import com.dice.Dice;
 import com.dice.NormalDice;
+import com.model.Board;
+import com.model.Player;
+import com.snake.Snake;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -38,9 +40,10 @@ public class SnakesAndLaddersService {
         int prePosition = -1;
         while(prePosition != position) {
             prePosition = position;
-            Map<Integer, Integer> snakes = board.getSnakes();
-            if(snakes.containsKey(position)) {
-                position = snakes.get(position);
+            List<Snake> snakes = board.getSnakes();
+            int finalPosition = position;
+            if(isSnakeHere(position, snakes)) {
+                position = snakes.stream().filter(snake -> snake.getStartPoint() == finalPosition).findFirst().map(Snake::getEndpoint).get();
                 player.setPosition(position);
                 player.addSnakeBitePosition(prePosition);
                 System.out.println(player.getName() + " got bit by snake. Goto position: " + position);
@@ -54,6 +57,10 @@ public class SnakesAndLaddersService {
             }
         }
         player.setPosition(position);
+    }
+
+    private boolean isSnakeHere(int position, List<Snake> snakes) {
+        return snakes.stream().anyMatch(snake -> snake.shouldBite(position));
     }
 
     private boolean isFinalDestination(Player player) {
