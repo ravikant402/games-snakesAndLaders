@@ -2,9 +2,6 @@ package com.dice;
 
 public class CrookedDice extends Dice {
 
-    public CrookedDice() {
-    }
-
     @Override
     public int roll() {
         int minValue = minDiceValue % 2 == 0 ? minDiceValue : minDiceValue + 1;

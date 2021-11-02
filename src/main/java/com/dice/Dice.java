@@ -8,8 +8,5 @@ public abstract class Dice {
     protected static final int minDiceValue = 1;
     Random random = new Random();
 
-    public Dice() {
-    }
-
     public abstract int roll();
 }
