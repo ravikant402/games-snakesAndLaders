@@ -6,12 +6,12 @@ import com.model.dice.NormalDice;
 
 public class DiceFactory {
 
-    public Dice getDice(int diceType, int minDiceValue, int maxDiceValue) {
+    public Dice getDice(int diceType) {
         if(diceType == 0) {
-            return new NormalDice(minDiceValue, maxDiceValue);
+            return new NormalDice();
         }
         else {
-            return new CrookedDice(minDiceValue, maxDiceValue);
+            return new CrookedDice();
         }
     }
 }

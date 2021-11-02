@@ -6,9 +6,7 @@ import com.model.dice.Dice;
 import com.service.DiceFactory;
 import com.service.SnakesAndLaddersService;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,52 +16,27 @@ public class Main {
         Map<Integer, Integer> ladders = new HashMap<>();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter atleast one player");
-        int noOfPlayers = sc.nextInt();
-        if (noOfPlayers > 0) {
-            List<Player> players = new ArrayList<>();
-            for (int i = 0; i < noOfPlayers; i++) {
-                players.add(new Player(sc.next()));
-            }
+        System.out.println("Enter the your name.");
+        Player player = new Player(sc.next());
 
-            System.out.println("Enter size of the Board. Odd board size will result in using the default Normal dice");
-            int boardSize = sc.nextInt();
+        System.out.println("Enter size of the Board.");
+        int boardSize = sc.nextInt();
 
-            setSnakesPositions(snakes, sc, boardSize);
-            setLaddersPositions(ladders, sc, boardSize);
+        setSnakesPositions(snakes, sc, boardSize);
+        setLaddersPositions(ladders, sc, boardSize);
 
-            Board board = new Board(boardSize, players, snakes, ladders);
-            Dice dice = getDice(sc, boardSize);
-            SnakesAndLaddersService snakesAndLaddersService = new SnakesAndLaddersService(board, dice);
-            snakesAndLaddersService.startGame();
-        }
+        Board board = new Board(boardSize, player, snakes, ladders);
+        Dice dice = getDice(sc);
+        SnakesAndLaddersService snakesAndLaddersService = new SnakesAndLaddersService(board, dice);
+        snakesAndLaddersService.startGame(sc);
+
     }
 
-    private static Dice getDice(Scanner sc, int boardSize) {
+    private static Dice getDice(Scanner sc) {
         DiceFactory diceFactory = new DiceFactory();
-
-        int diceType;
-        if (boardSize % 2 != 0) {
-            System.out.println("Your board size is odd. Playing with Crooked dice cannot end up in a winner. Therefore taking the Normal dice.");
-            diceType = 0;
-        }
-        else{
-            System.out.println("Enter 0 for Normal Dice, else Crooked Dice");
-            diceType = sc.nextInt();
-        }
-
-        int minDiceValue;
-        do {
-            System.out.println("Enter minimun dice value. Should be greater than 0.");
-            minDiceValue = sc.nextInt();
-        } while (minDiceValue <= 0 || minDiceValue >= boardSize - 1);
-
-        int maxDiceValue;
-        do {
-            System.out.println("Enter maximum dice value. Should be less than the board size.");
-            maxDiceValue = sc.nextInt();
-        } while (maxDiceValue > boardSize || maxDiceValue <= minDiceValue);
-        return diceFactory.getDice(diceType, minDiceValue, maxDiceValue);
+        System.out.println("Enter 0 for Normal Dice, else Crooked Dice");
+        int diceType = sc.nextInt();
+        return diceFactory.getDice(diceType);
     }
 
     private static void setSnakesPositions(Map<Integer, Integer> snakes, Scanner sc, int boardSize) {

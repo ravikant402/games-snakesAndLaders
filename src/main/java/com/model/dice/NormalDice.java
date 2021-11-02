@@ -2,8 +2,7 @@ package com.model.dice;
 
 public class NormalDice extends Dice {
 
-    public NormalDice(int minDiceValue, int maxDiceValue) {
-        super(minDiceValue, maxDiceValue);
+    public NormalDice() {
     }
 
     @Override

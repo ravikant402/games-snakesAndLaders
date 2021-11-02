@@ -3,27 +3,21 @@ package com.service;
 import com.model.Board;
 import com.model.Player;
 import com.model.dice.Dice;
+import com.model.dice.NormalDice;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Queue;
+import java.util.Scanner;
 
 public class SnakesAndLaddersService {
 
     private Board board;
-    private Queue<Player> players;
+    private Player player;
     private Dice dice;
 
     public SnakesAndLaddersService(Board board, Dice dice) {
         this.board = board;
-        this.setPlayers(board.getPlayers());
+        this.player = board.getPlayer();
         this.dice = dice;
-    }
-
-    private void setPlayers(List<Player> players) {
-        this.players = new LinkedList<>();
-        this.players.addAll(players);
     }
 
     private void move(Player player, int diceValue) {
@@ -69,20 +63,41 @@ public class SnakesAndLaddersService {
         return false;
     }
 
-    public void startGame() {
-        while (true) {
-            int diceValue = dice.roll();
-            Player currentPlayer = players.poll();
-            move(currentPlayer, diceValue);
-            if (isFinalDestination(currentPlayer)) {
-                System.out.println(currentPlayer.getName() + " has won.");
-                players.clear();
+    public void startGame(Scanner sc) {
+        boolean moreTurns = true;
+        System.out.println("Press 'y' for testing mode, else game mode.");
+        boolean mode = sc.hasNext("y");
+        sc.next();
+        while (moreTurns) {
+            int diceValue = 0;
+            if(mode) {
+                System.out.println("Enter 'e' to exit");
+                if ("e".equals(sc.next())) {
+                    break;
+                }
+                if (dice instanceof NormalDice) {
+                    do{
+                        System.out.println("Press a number between 1-6 for a dice value.");
+                        diceValue = sc.nextInt();
+                    } while(diceValue > 6 || diceValue < 1);
+
+                }
+                else {
+                    do {
+                        System.out.println("Press even number between 1-6 for dice value.");
+                        diceValue = sc.nextInt();
+                    } while(diceValue % 2 != 0 || diceValue > 6 || diceValue < 1);
+                }
+
             }
             else {
-                players.add(currentPlayer);
+                diceValue = dice.roll();
             }
-            if (players.isEmpty()) {
-                break;
+
+            move(player, diceValue);
+            if (isFinalDestination(player)) {
+                System.out.println(player.getName() + " has won.");
+                moreTurns = false;
             }
         }
     }
