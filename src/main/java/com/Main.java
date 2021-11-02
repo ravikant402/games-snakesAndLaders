@@ -63,7 +63,8 @@ public class Main {
                 end = sc.nextInt();
             } while (end >= start || end <= 0);
 
-            System.out.println("Enter 'N' for normal Sanke, else Green Snake");
+            sc.nextLine();
+            System.out.println("Enter 'n' for normal Sanke, else Green Snake");
             SnakeFactory snakeFactory = new SnakeFactory();
             Snake snake = snakeFactory.getSnake(sc.nextLine(), start, end);
 
